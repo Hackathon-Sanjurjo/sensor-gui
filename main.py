@@ -1,5 +1,4 @@
 import sys
-import pyqtgraph as pg
 from PySide import QtCore
 from PySide import QtGui
 from sensorgui.vis_3d import Vis3D
