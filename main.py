@@ -51,6 +51,7 @@ class MainWidget(QtGui.QWidget):
 
     def update_view(self):
         self.vis_3d.update_view()
+        self.vis_sensors.update_view()
 
 
 if __name__ == "__main__":
