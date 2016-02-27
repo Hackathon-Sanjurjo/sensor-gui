@@ -12,7 +12,11 @@ class MainWindow(QtGui.QMainWindow):
         self.setWindowTitle('Sensor GUI')
         self.resize(1000, 600)
         self.show()
-        self.setCentralWidget(MainWidget())
+        self.main_widget = MainWidget()
+        self.setCentralWidget(self.main_widget)
+
+    def update_view(self):
+        self.main_widget.update_view()
 
 
 class MainWidget(QtGui.QWidget):
@@ -29,24 +33,32 @@ class MainWidget(QtGui.QWidget):
 
     def splitter(self):
 
-        topleft = Vis3D()
-        topright = VisInstrument()
-        bottom = VisSensors()
+        self.vis_3d = Vis3D()
+        self.vis_instrument = VisInstrument()
+        self.vis_sensors = VisSensors()
 
         hbox = QtGui.QHBoxLayout(self)
         splitter1 = QtGui.QSplitter(QtCore.Qt.Horizontal)
-        splitter1.addWidget(topleft)
-        splitter1.addWidget(topright)
+        splitter1.addWidget(self.vis_3d)
+        splitter1.addWidget(self.vis_instrument)
         splitter1.setSizes([80, 20])
         splitter2 = QtGui.QSplitter(QtCore.Qt.Vertical)
         splitter2.addWidget(splitter1)
-        splitter2.addWidget(bottom)
+        splitter2.addWidget(self.vis_sensors)
         splitter2.setSizes([80, 20])
         hbox.addWidget(splitter2)
         self.setLayout(hbox)
+
+    def update_view(self):
+        self.vis_3d.update_view()
 
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
     main_window = MainWindow()
+
+    timer = QtCore.QTimer()
+    timer.timeout.connect(main_window.update_view)
+    timer.start(30)
+
     sys.exit(app.exec_())
