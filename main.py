@@ -1,4 +1,5 @@
 import sys
+import zmq
 from PySide import QtCore
 from PySide import QtGui
 from sensorgui.vis_3d import Vis3D
@@ -23,6 +24,12 @@ class MainWidget(QtGui.QWidget):
     def __init__(self):
         super().__init__()
         self.splitter()
+        self.context = zmq.Context()
+        self.subscriber = self.context.socket(zmq.SUB)
+        self.subscriber.connect('tcp://10.42.0.114:9876')
+        self.subscriber.setsockopt_string(zmq.SUBSCRIBE, '')
+        self.poller = zmq.Poller()
+        self.poller.register(self.subscriber, zmq.POLLIN)
 
     def box(self):
 
@@ -50,6 +57,19 @@ class MainWidget(QtGui.QWidget):
         self.setLayout(hbox)
 
     def update_view(self):
+        while True:
+            events = dict(self.poller.poll(5))
+            if not events:
+                break
+            for socket in events:
+                if events[socket] != zmq.POLLIN:
+                    continue
+                message = socket.recv_pyobj()
+                timestamp, angles, accel = message
+                x_angle = angles[0]
+                y_angle = angles[1]
+                z_angle = angles[2]
+                self.vis_sensors.push_data(timestamp, angles)
         self.vis_3d.update_view()
         self.vis_sensors.update_view()
 
