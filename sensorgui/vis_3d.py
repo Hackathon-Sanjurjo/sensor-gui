@@ -10,6 +10,9 @@ class Vis3D(gl.GLViewWidget):
         self.add_grid()
         self.add_board()
         #self.add_sea()
+        self.old_x=0
+        self.old_y=0
+        self.old_z=0
 
     def add_grid(self):
         self.grid = gl.GLGridItem()
@@ -61,6 +64,10 @@ class Vis3D(gl.GLViewWidget):
                                   drawEdges=False)
         self.addItem(self.board)
 
+        self.axis = gl.GLAxisItem()
+        self.axis.setSize (x=10,y=10,z=10)
+        self.addItem(self.axis)
+
     def add_sea(self):
         self.removeItem(self.grid)
         z = pg.gaussianFilter(np.random.normal(size=(100,100)), (1,1))
@@ -70,5 +77,19 @@ class Vis3D(gl.GLViewWidget):
         self.sea.translate(-50, -50, -1)
         self.addItem(self.sea)
 
-    def update_view(self):
-        self.board.rotate(1, 1, 0, 0)
+
+
+
+    def update_view(self, x,y,z):
+        if (self.old_x==None): self.old_x= x
+        if (self.old_y==None): self.old_y= y
+        if (self.old_z==None): self.old_z= z
+        dif_x = x - self.old_x
+        dif_y = y - self.old_y
+        dif_z = z - self.old_z
+        self.board.rotate(1, dif_x, dif_y, dif_z)
+        self.axis.rotate(1, dif_x, dif_y, dif_z)
+        print (dif_x, dif_y, dif_z)
+        self.old_x = x
+        self.old_y = y
+        self.old_z = z

@@ -70,7 +70,9 @@ class MainWidget(QtGui.QWidget):
                 y_angle = angles[1]
                 z_angle = angles[2]
                 self.vis_sensors.push_data(timestamp, angles)
-        self.vis_3d.update_view()
+                self.vis_3d.update_view(x_angle,y_angle,z_angle)
+
+
         self.vis_sensors.update_view()
 
 
