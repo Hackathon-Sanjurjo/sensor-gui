@@ -7,9 +7,10 @@ class VisSensors(pg.PlotWidget):
         super().__init__()
 
         self.setRange(yRange=(-100, 100))
-        self.x_angle = self.plot(pen='y')
-        self.y_angle = self.plot(pen='r')
-        self.z_angle = self.plot(pen='g')
+        self.legend = self.addLegend(offset=(-50, 20))
+        self.x_angle = self.plot(pen='y', name='x_angle')
+        self.y_angle = self.plot(pen='r', name='y_angle')
+        self.z_angle = self.plot(pen='g', name='z_angle')
         self.array = Array(4)
 
     def push_data(self, timestamp, angles):
