@@ -82,19 +82,11 @@ class Vis3D(gl.GLViewWidget):
 
 
     def update_view(self, x,y,z):
-        if (self.old_x==None): self.old_x= x
-        if (self.old_y==None): self.old_y= y
-        if (self.old_z==None): self.old_z= z
-        dif_x = self.old_x - x
-        dif_y = self.old_y - y
-        dif_z = self.old_z - z
-        self.board.rotate(dif_x,x=1, y=0, z=0)
-        self.board.rotate(dif_y,x=0, y=1, z=0)
+        self.board.resetTransform()
+        self.board.rotate(x,x=1, y=0, z=0)
+        self.board.rotate(y,x=0, y=1, z=0)
         #self.board.rotate(dif_z,x=0, y=0, z=1)
-        self.axis.rotate(dif_x, x=1, y=0, z=0)
-        self.axis.rotate(dif_y, x=0, y=1, z=0)
+        self.axis.resetTransform()
+        self.axis.rotate(x, x=1, y=0, z=0)
+        self.axis.rotate(y, x=0, y=1, z=0)
         #self.axis.rotate(dif_z, x=0, y=0, z=1)
-        print (dif_x, dif_y, dif_z)
-        self.old_x = x
-        self.old_y = y
-        self.old_z = z
