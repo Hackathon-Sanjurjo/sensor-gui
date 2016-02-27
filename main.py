@@ -65,7 +65,7 @@ class MainWidget(QtGui.QWidget):
                 if events[socket] != zmq.POLLIN:
                     continue
                 message = socket.recv_pyobj()
-                timestamp, angles, accel = message
+                timestamp, angles, accel, tmp = message
                 x_angle = angles[0]
                 y_angle = angles[1]
                 z_angle = angles[2]
