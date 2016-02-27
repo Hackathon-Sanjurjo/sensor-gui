@@ -1,8 +1,10 @@
 import sys
 import pyqtgraph as pg
-import pyqtgraph.opengl as gl
 from PySide import QtCore
 from PySide import QtGui
+from sensorgui.vis_3d import Vis3D
+from sensorgui.vis_sensors import VisSensors
+from sensorgui.vis_instrument import VisInstrument
 
 
 class MainWindow(QtGui.QMainWindow):
@@ -28,9 +30,9 @@ class MainWidget(QtGui.QWidget):
 
     def splitter(self):
 
-        topleft = gl.GLViewWidget()
-        topright = pg.PlotWidget()
-        bottom = pg.PlotWidget()
+        topleft = Vis3D()
+        topright = VisInstrument()
+        bottom = VisSensors()
 
         hbox = QtGui.QHBoxLayout(self)
         splitter1 = QtGui.QSplitter(QtCore.Qt.Horizontal)
