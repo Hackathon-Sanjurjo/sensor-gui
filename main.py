@@ -6,6 +6,7 @@ from sensorgui.vis_3d import Vis3D
 from sensorgui.vis_sensors import VisSensors
 from sensorgui.vis_instrument import VisInstrument
 
+from sensorgui.beepy import Beepy
 
 class MainWindow(QtGui.QMainWindow):
     def __init__(self):
@@ -15,6 +16,7 @@ class MainWindow(QtGui.QMainWindow):
         self.show()
         self.main_widget = MainWidget()
         self.setCentralWidget(self.main_widget)
+
 
     def update_view(self):
         self.main_widget.update_view()
@@ -32,6 +34,8 @@ class MainWidget(QtGui.QWidget):
         self.subscriber.setsockopt_string(zmq.SUBSCRIBE, '')
         self.poller = zmq.Poller()
         self.poller.register(self.subscriber, zmq.POLLIN)
+
+        self.beep = Beepy()
 
     def box(self):
 
@@ -74,6 +78,7 @@ class MainWidget(QtGui.QWidget):
                 self.vis_sensors.push_data(timestamp, angles)
                 self.vis_3d.update_view(x_angle,y_angle,z_angle)
 
+                self.beep.beep(x_angle)
 
         self.vis_sensors.update_view()
 
