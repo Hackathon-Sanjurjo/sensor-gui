@@ -75,10 +75,13 @@ class MainWidget(QtGui.QWidget):
                 x_angle = angles[0]
                 y_angle = angles[1]
                 z_angle = angles[2]
+                x_accel = accel[0]
+                y_accel = accel[1]
+                z_accel = accel[2]
                 self.vis_sensors.push_data(timestamp, angles)
                 self.vis_3d.update_view(x_angle,y_angle,z_angle)
-
                 self.beep.beep(x_angle)
+                self.vis_instrument.update_view(x_accel, y_accel, z_accel)
 
         self.vis_sensors.update_view()
 
