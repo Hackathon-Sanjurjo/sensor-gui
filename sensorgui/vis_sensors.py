@@ -8,6 +8,7 @@ class VisSensors(pg.PlotWidget):
 
         self.setRange(yRange=(-100, 100))
         self.hideAxis('bottom')
+        self.setLabel('left', 'Rotation', 'deg')
         self.legend = self.addLegend(offset=(-50, 20))
         self.x_angle = self.plot(pen='y', name='x_angle')
         self.y_angle = self.plot(pen='r', name='y_angle')
