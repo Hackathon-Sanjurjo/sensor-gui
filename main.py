@@ -50,11 +50,11 @@ class MainWidget(QtGui.QWidget):
         splitter1 = QtGui.QSplitter(QtCore.Qt.Horizontal)
         splitter1.addWidget(self.vis_3d)
         splitter1.addWidget(self.vis_instrument)
-        splitter1.setSizes([80, 20])
+        splitter1.setSizes([800, 200])
         splitter2 = QtGui.QSplitter(QtCore.Qt.Vertical)
         splitter2.addWidget(splitter1)
         splitter2.addWidget(self.vis_sensors)
-        splitter2.setSizes([80, 20])
+        splitter2.setSizes([400, 200])
         hbox.addWidget(splitter2)
         self.setLayout(hbox)
 
