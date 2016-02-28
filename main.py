@@ -11,7 +11,7 @@ from sensorgui.beepy import Beepy
 class MainWindow(QtGui.QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle('Sensor GUI')
+        self.setWindowTitle('Spinete GUI')
         self.resize(1000, 600)
         self.show()
         self.main_widget = MainWidget()
