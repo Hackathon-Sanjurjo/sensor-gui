@@ -11,9 +11,10 @@ from sensorgui.beepy import Beepy
 class MainWindow(QtGui.QMainWindow):
     def __init__(self):
         super().__init__()
+        self.setWindowFlags(QtCore.Qt.CustomizeWindowHint)
         self.setWindowTitle('Spinete GUI')
         self.resize(1000, 600)
-        self.show()
+        self.showFullScreen()
         self.main_widget = MainWidget()
         self.setCentralWidget(self.main_widget)
 
@@ -22,9 +23,10 @@ class MainWindow(QtGui.QMainWindow):
         self.main_widget.update_view()
 
 
-class MainWidget(QtGui.QWidget):
+class MainWidget(QtGui.QFrame):
     def __init__(self):
         super().__init__()
+        self.setStyleSheet("background-color: rgb(20,20,20);")
         self.splitter()
         self.context = zmq.Context()
         self.subscriber = self.context.socket(zmq.SUB)
